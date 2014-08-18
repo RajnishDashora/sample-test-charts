@@ -13,40 +13,26 @@
 <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 <script>
  $(function () {
- 	console.log("hello");
-    $('#container').highcharts({
-        title: {
-            text: 'Monthly Average Temperature',
-            x: -20 //center
-        },
-        subtitle: {
-            text: 'Source: WorldClimate.com',
-            x: -20
-        },
-        xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-        },
-        yAxis: {
-            title: {
-                text: 'Temperature (°C)'
-            },
-            plotLines: [{
+ 	
+    var title = 'Monthly Average Temperature';
+    var subTitle = 'Source: WorldClimate.com';
+    var xTitle =  -20; 
+    var xSubTitle = -20;
+    var yAxisTitle = 'Temperature (°C)';
+    var yAxisPlotLines=[{
                 value: 0,
                 width: 1,
                 color: '#139889'
-            }]
-        },
-        tooltip: {
-            valueSuffix: '°C'
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle',
-            borderWidth: 0
-        },
-        series: [{
+            }];
+    var tooltipValueSuffix = '°C';
+    var legendLayout = 'vertical';
+    var legendAlignment = 'right';
+    var legandVerticalAlignment = 'middle';
+    var legandBorderWidth = 0 ; 
+
+     var categories =  ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var series = [{
             name: 'Tokyo',
             data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
         }, {
@@ -59,10 +45,46 @@
             name: 'London',
             data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
         }]
+
+    var firstChart = new Highcharts.Chart({
+        chart:{
+            renderTo: 'container',
+            type:'line'
+        },
+        title: {
+            text: title,
+            x: xTitle 
+        },
+        subtitle: {
+            text: subTitle,
+            x: xSubTitle
+        },
+        xAxis: {
+            categories: categories
+        },
+        yAxis: {
+            title: {
+                text: yAxisTitle
+            },
+            plotLines: yAxisPlotLines
+        },
+        tooltip: {
+            valueSuffix: tooltipValueSuffix
+        },
+        legend: {
+            layout: legendLayout,
+            align: legendAlignment,
+            verticalAlign: legandVerticalAlignment,
+            borderWidth: legandBorderWidth
+        },
+        series: series
     });
+
+    console.log(firstChart);
+
 });
 </script>
-<div id="container" style="width:100%; height:400px;"> </div>
+
 
 </body>
 
