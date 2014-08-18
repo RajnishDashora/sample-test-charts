@@ -1,27 +1,65 @@
 
  $(function () {
-
-    $( "#plotLineChart" ).click(function() {
- 
-        var chartView1 = new Plot('line');
-        chartView1.draw();
-    }); 
-    $( "#plotBarChart" ).click(function() {
-       
-        var chartView2 = new Plot('bar');
-        chartView2.draw();
-    }); 
-    $( "#plotPieChart" ).click(function() {
-    
-        var chartView3 = new Plot('pie');
-        chartView3.draw();
-    }); 	 
+     var Plotter1 = new Plotter();
 });
 
-var Plot = function(plotType){
+
+// plots or different type of representations of data 
+var Plot = function(plotType,plotter){
  
      this.plotType = plotType;
      this.container ='container';
+     this.plotter = plotter
+}
+
+Plot.prototype = {
+
+ draw :function(){
+
+     console.log(this.plotType);
+     console.log(this.plotter);
+
+    var firstChart = new Highcharts.Chart({
+        chart:{
+            renderTo: this.container,
+            type:this.plotType
+        },
+        title: {
+            text: this.plotter.title,
+            x: this.plotter.xTitle 
+        },
+        subtitle: {
+            text: this.plotter.subTitle,
+            x: this.plotter.xSubTitle
+        },
+        xAxis: {
+            categories: this.plotter.categories
+        },
+        yAxis: {
+            title: {
+                text: this.plotter.yAxisTitle
+            },
+            plotLines: this.plotter.yAxisPlotLines
+        },
+        tooltip: {
+            valueSuffix: this.plotter.tooltipValueSuffix
+        },
+        legend: {
+            layout: this.plotter.legendLayout,
+            align: this.plotter.legendAlignment,
+            verticalAlign: this.plotter.legandVerticalAlignment,
+            borderWidth: this.plotter.legandBorderWidth
+        },
+        series: this.plotter.series
+    });
+}
+
+}
+
+
+//data to be ploted wrapped in plotter to initialize various plots 
+var Plotter = function(){
+
      this.title = 'Monthly Average Temperature';
      this.subTitle = 'Source: WorldClimate.com';
      this.xTitle =  -20; 
@@ -51,50 +89,33 @@ var Plot = function(plotType){
         }, {
             name: 'London',
             data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-        }]    
+        }];
+
+     this.initialize();    
 
 }
 
-Plot.prototype = {
+Plotter.prototype = {
+    
+    initialize: function(){
+        self = this;
 
- draw :function(){
-     console.log(this.plotType);
+        $( "#plotLineChart" ).click(function() {
+ 
+        var chartView1 = new Plot('line',self);
+        chartView1.draw();
+         }); 
+        $( "#plotBarChart" ).click(function() {
+       
+        var chartView2 = new Plot('bar',self);
+        chartView2.draw();
+        }); 
+         $( "#plotPieChart" ).click(function() {
+    
+        var chartView3 = new Plot('pie',self);
+        chartView3.draw();
+        });     
 
-    var firstChart = new Highcharts.Chart({
-        chart:{
-            renderTo: this.container,
-            type:this.plotType
-        },
-        title: {
-            text: this.title,
-            x: this.xTitle 
-        },
-        subtitle: {
-            text: this.subTitle,
-            x: this.xSubTitle
-        },
-        xAxis: {
-            categories: this.categories
-        },
-        yAxis: {
-            title: {
-                text: this.yAxisTitle
-            },
-            plotLines: this.yAxisPlotLines
-        },
-        tooltip: {
-            valueSuffix: this.tooltipValueSuffix
-        },
-        legend: {
-            layout: this.legendLayout,
-            align: this.legendAlignment,
-            verticalAlign: this.legandVerticalAlignment,
-            borderWidth: this.legandBorderWidth
-        },
-        series: this.series
-    });
-}
-
+    }
 
 }
-
