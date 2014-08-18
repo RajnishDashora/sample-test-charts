@@ -1,40 +1,45 @@
 
  $(function () {
+
     $( "#plotLineChart" ).click(function() {
  
-        plotChart('line');
+        var chartView1 = new Plot('line');
+        chartView1.draw();
     }); 
     $( "#plotBarChart" ).click(function() {
        
-        plotChart('bar');
+        var chartView2 = new Plot('bar');
+        chartView2.draw();
     }); 
     $( "#plotPieChart" ).click(function() {
     
-        plotChart('pie');
+        var chartView3 = new Plot('pie');
+        chartView3.draw();
     }); 	 
 });
 
-var plotChart =function(chartType){
-    var container ='container'
-    var title = 'Monthly Average Temperature';
-    var subTitle = 'Source: WorldClimate.com';
-    var xTitle =  -20; 
-    var xSubTitle = -20;
-    var yAxisTitle = 'Temperature (°C)';
-    var yAxisPlotLines=[{
+var Plot = function(plotType){
+ 
+     this.plotType = plotType;
+     this.container ='container';
+     this.title = 'Monthly Average Temperature';
+     this.subTitle = 'Source: WorldClimate.com';
+     this.xTitle =  -20; 
+     this.xSubTitle = -20;
+     this.yAxisTitle = 'Temperature (°C)';
+     this.yAxisPlotLines=[{
                 value: 0,
                 width: 1,
                 color: '#139889'
             }];
-    var tooltipValueSuffix = '°C';
-    var legendLayout = 'vertical';
-    var legendAlignment = 'right';
-    var legandVerticalAlignment = 'middle';
-    var legandBorderWidth = 0 ; 
-
-     var categories =  ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+     this.tooltipValueSuffix = '°C';
+     this.legendLayout = 'vertical';
+     this.legendAlignment = 'right';
+     this.legandVerticalAlignment = 'middle';
+     this.legandBorderWidth = 0 ; 
+     this.categories =  ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    var series = [{
+     this.series = [{
             name: 'Tokyo',
             data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
         }, {
@@ -46,39 +51,50 @@ var plotChart =function(chartType){
         }, {
             name: 'London',
             data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-        }]
+        }]    
+
+}
+
+Plot.prototype = {
+
+ draw :function(){
+     console.log(this.plotType);
 
     var firstChart = new Highcharts.Chart({
         chart:{
-            renderTo: container,
-            type:chartType
+            renderTo: this.container,
+            type:this.plotType
         },
         title: {
-            text: title,
-            x: xTitle 
+            text: this.title,
+            x: this.xTitle 
         },
         subtitle: {
-            text: subTitle,
-            x: xSubTitle
+            text: this.subTitle,
+            x: this.xSubTitle
         },
         xAxis: {
-            categories: categories
+            categories: this.categories
         },
         yAxis: {
             title: {
-                text: yAxisTitle
+                text: this.yAxisTitle
             },
-            plotLines: yAxisPlotLines
+            plotLines: this.yAxisPlotLines
         },
         tooltip: {
-            valueSuffix: tooltipValueSuffix
+            valueSuffix: this.tooltipValueSuffix
         },
         legend: {
-            layout: legendLayout,
-            align: legendAlignment,
-            verticalAlign: legandVerticalAlignment,
-            borderWidth: legandBorderWidth
+            layout: this.legendLayout,
+            align: this.legendAlignment,
+            verticalAlign: this.legandVerticalAlignment,
+            borderWidth: this.legandBorderWidth
         },
-        series: series
+        series: this.series
     });
 }
+
+
+}
+
