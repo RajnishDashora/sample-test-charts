@@ -16,9 +16,6 @@ Plot.prototype = {
 
  draw :function(){
 
-     console.log(this.plotType);
-     console.log(this.plotter);
-
     var firstChart = new Highcharts.Chart({
         chart:{
             renderTo: this.container,
@@ -60,6 +57,21 @@ Plot.prototype = {
 //data to be ploted wrapped in plotter to initialize various plots 
 var Plotter = function(){
 
+     this.lineViewButtonElement=$("#plotLineChart");
+     this.barViewButtonElement=$("#plotBarChart");
+     this.pieViewButtonElement=$("#plotPieChart");
+
+     this.renderData();
+     this.initialize();    
+
+}
+
+Plotter.prototype = {
+    renderData:function(){
+        // Note : series to be varried according to the chart Type 
+        // TODO: ajax call hit the API to render data 
+
+
      this.title = 'Monthly Average Temperature';
      this.subTitle = 'Source: WorldClimate.com';
      this.xTitle =  -20; 
@@ -91,27 +103,22 @@ var Plotter = function(){
             data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
         }];
 
-     this.initialize();    
-
-}
-
-Plotter.prototype = {
+    },
     
     initialize: function(){
         self = this;
 
-        $( "#plotLineChart" ).click(function() {
- 
+        this.lineViewButtonElement.click(function() {
         var chartView1 = new Plot('line',self);
         chartView1.draw();
          }); 
-        $( "#plotBarChart" ).click(function() {
-       
+
+        this.barViewButtonElement.click(function() {  
         var chartView2 = new Plot('bar',self);
         chartView2.draw();
         }); 
-         $( "#plotPieChart" ).click(function() {
-    
+
+        this.pieViewButtonElement.click(function() {
         var chartView3 = new Plot('pie',self);
         chartView3.draw();
         });     
