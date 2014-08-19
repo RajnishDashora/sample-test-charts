@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Sample Chart</title>
+
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+	</script>
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+	<script src="js/angular.min.js"></script>
+
+	
+    <script src="js/angular-app.js"></script>
+
+</head>
+
+<body>
+	<div ng-app="plotter">
+		<div ng-controller="PlotController as plot">
+    		<button ng-click="plot.plotChart('line')" >Plot line Chart</button>
+    		<button ng-click="plot.plotChart('bar')" >Plot bar Chart</button>
+    	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+	</div>
+</body>
+
+</html>
