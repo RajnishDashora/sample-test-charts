@@ -6,72 +6,16 @@
 
 // plots or different type of representations of data 
 var Plot = function(plotType,plotter){
- 
      this.plotType = plotType;
      this.container ='container';
-     this.plotter = plotter
+     this.plotter = plotter;
+     this.initialize();
 }
 
 Plot.prototype = {
 
- draw :function(){
-
-    var firstChart = new Highcharts.Chart({
-        chart:{
-            renderTo: this.container,
-            type:this.plotType
-        },
-        title: {
-            text: this.plotter.title,
-            x: this.plotter.xTitle 
-        },
-        subtitle: {
-            text: this.plotter.subTitle,
-            x: this.plotter.xSubTitle
-        },
-        xAxis: {
-            categories: this.plotter.categories
-        },
-        yAxis: {
-            title: {
-                text: this.plotter.yAxisTitle
-            },
-            plotLines: this.plotter.yAxisPlotLines
-        },
-        tooltip: {
-            valueSuffix: this.plotter.tooltipValueSuffix
-        },
-        legend: {
-            layout: this.plotter.legendLayout,
-            align: this.plotter.legendAlignment,
-            verticalAlign: this.plotter.legandVerticalAlignment,
-            borderWidth: this.plotter.legandBorderWidth
-        },
-        series: this.plotter.series
-    });
-}
-
-}
-
-
-//data to be ploted wrapped in plotter to initialize various plots 
-var Plotter = function(){
-
-     this.lineViewButtonElement=$("#plotLineChart");
-     this.barViewButtonElement=$("#plotBarChart");
-     this.pieViewButtonElement=$("#plotPieChart");
-
-     this.renderData();
-     this.initialize();    
-
-}
-
-Plotter.prototype = {
-    renderData:function(){
-        // Note : series to be varried according to the chart Type 
-        // TODO: ajax call hit the API to render data 
-
-
+ initialize : function(){
+         // Chart Poperties to initialize
      this.title = 'Monthly Average Temperature';
      this.subTitle = 'Source: WorldClimate.com';
      this.xTitle =  -20; 
@@ -87,6 +31,63 @@ Plotter.prototype = {
      this.legendAlignment = 'right';
      this.legandVerticalAlignment = 'middle';
      this.legandBorderWidth = 0 ; 
+ },
+ draw :function(){
+
+    var firstChart = new Highcharts.Chart({
+        chart:{
+            renderTo: this.container,
+            type:this.plotType
+        },
+        title: {
+            text: this.title,
+            x: this.xTitle 
+        },
+        subtitle: {
+            text: this.subTitle,
+            x: this.xSubTitle
+        },
+        xAxis: {
+            categories: this.plotter.categories
+        },
+        yAxis: {
+            title: {
+                text: this.yAxisTitle
+            },
+            plotLines: this.yAxisPlotLines
+        },
+        tooltip: {
+            valueSuffix: this.tooltipValueSuffix
+        },
+        legend: {
+            layout: this.legendLayout,
+            align: this.legendAlignment,
+            verticalAlign: this.legandVerticalAlignment,
+            borderWidth: this.legandBorderWidth
+        },
+        series: this.plotter.series
+    });
+}
+
+}
+
+
+//data to be ploted wrapped in plotter to initialize various plots 
+var Plotter = function(){
+
+     this.lineViewButtonElement=$("#plotLineChart");
+     this.barViewButtonElement=$("#plotBarChart");
+
+     this.renderData();
+     this.initialize();    
+
+}
+
+Plotter.prototype = {
+
+    renderData:function(){
+     
+      // TODO: ajax call hit the API to render data
      this.categories =  ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
      this.series = [{
@@ -117,12 +118,7 @@ Plotter.prototype = {
         var chartView2 = new Plot('bar',self);
         chartView2.draw();
         }); 
-
-        this.pieViewButtonElement.click(function() {
-        var chartView3 = new Plot('pie',self);
-        chartView3.draw();
-        });     
-
+  
     }
 
 }
