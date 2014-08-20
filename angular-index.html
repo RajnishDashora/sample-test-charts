@@ -18,9 +18,11 @@
 <body>
 	<div ng-app="plotter">
 		<div ng-controller="PlotController as plot">
-    		<button ng-click="plot.plotChart('line')" >Plot line Chart</button>
-    		<button ng-click="plot.plotChart('bar')" >Plot bar Chart</button>
-    	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+            <button ng-click="plotChart('line')" >Plot line Chart</button>
+    		<button ng-click="plotChart('bar')" >Plot bar Chart</button>
+
+            <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
 	</div>
 </body>

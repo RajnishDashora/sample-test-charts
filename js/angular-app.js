@@ -1,58 +1,58 @@
 (function(){
 var app = angular.module("plotter",[]);
  
- app.controller("PlotController",function(){
+ app.controller("PlotController",['$scope',function($scope){
 
     
- 	this.plotProperties = plotProperties;
- 	this.plotData = plotData;
+ 	$scope.plotProperties = plotProperties;
+ 	$scope.plotData = plotData;
      
 
-	this.plotChart = function(chartType){
+	$scope.plotChart = function(chartType){
  
- 	this.chartType = chartType;
- 	this.container ='container';
- 	this.draw();
+ 	$scope.chartType = chartType;
+ 	$scope.container ='container';
+ 	$scope.draw();
 	};
 
-	this.draw = function(){
+	$scope.draw = function(){
 
     var firstChart = new Highcharts.Chart({
         chart:{
-            renderTo: this.container,
-            type:this.chartType
+            renderTo: $scope.container,
+            type:$scope.chartType
         },
         title: {
-            text: this.plotProperties.title,
-            x: this.plotProperties.xTitle 
+            text: $scope.plotProperties.title,
+            x: $scope.plotProperties.xTitle
         },
         subtitle: {
-            text: this.plotProperties.subTitle,
-            x: this.plotProperties.xSubTitle
+            text: $scope.plotProperties.subTitle,
+            x: $scope.plotProperties.xSubTitle
         },
         xAxis: {
-            categories: this.plotData.categories
+            categories: $scope.plotData.categories
         },
         yAxis: {
             title: {
-                text: this.plotProperties.yAxisTitle
+                text: $scope.plotProperties.yAxisTitle
             },
-            plotLines: this.plotProperties.yAxisPlotLines
+            plotLines: $scope.plotProperties.yAxisPlotLines
         },
         tooltip: {
-            valueSuffix: this.plotProperties.tooltipValueSuffix
+            valueSuffix: $scope.plotProperties.tooltipValueSuffix
         },
         legend: {
-            layout: this.plotProperties.legendLayout,
-            align: this.plotProperties.legendAlignment,
-            verticalAlign: this.plotProperties.legandVerticalAlignment,
-            borderWidth: this.plotProperties.legandBorderWidth
+            layout: $scope.plotProperties.legendLayout,
+            align: $scope.plotProperties.legendAlignment,
+            verticalAlign: $scope.plotProperties.legandVerticalAlignment,
+            borderWidth: $scope.plotProperties.legandBorderWidth
         },
-        series: this.plotData.series
+        series: $scope.plotData.series
     });
 };
  	
- });
+ }]);
 
  var plotProperties = {
 
