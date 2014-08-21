@@ -1,29 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Sample Chart</title>
-
+    <meta charset="UTF-8">
+    <title>Sample Chart</title>
 
     <script src="assets/lib/jquery/jquery.min.js"></script>
-	<script src="assets/lib/highcharts/highcharts.js"></script>
-	<script src="assets/lib/angular/angular.min.js"></script>
+    <link rel="stylesheet" href="assets/lib/bootstrap-3.2.0/css/bootstrap.min.css">
+    <script src="assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+
+    <script src="assets/lib/highcharts/highcharts.js"></script>
+    <script src="assets/lib/angular/angular.min.js"></script>
     <script src="assets/js/data.js"></script>
     <script src="assets/js/angular-app.js"></script>
 
 </head>
 
 <body>
-	<div ng-app="plotter">
-		<div ng-controller="PlotController as plot">
 
-            <button ng-click="plotChart('line')" >Plot line Chart</button>
-    		<button ng-click="plotChart('bar')" >Plot bar Chart</button>
+
+<div class="row">
+    <div ng-app="plotter">
+        <div ng-controller="PlotController as plot">
+
+            <button ng-click="plotChart('line')">Plot line Chart</button>
+            <button ng-click="plotChart('bar')">Plot bar Chart</button>
+
+            <button ng-click="loadJSONData()">Load JSON Data</button>
 
             <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="modal">
+        <div class="row"><h1>Hello World</h1></div>
+
+        <div class="row">
+            <div class="col-md-8">graphs</div>
+            <div class="col-md-4">list</div>
+        </div>
+    </div>
+</div>
 
 
-	</div>
 </body>
 
 </html>

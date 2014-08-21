@@ -1,7 +1,7 @@
 (function(){
 var app = angular.module("plotter",[]);
  
- app.controller("PlotController",['$scope',function($scope){
+ app.controller("PlotController",['$scope','$http',function($scope,$http){
 
 
  	$scope.plotProperties = plotProperties;
@@ -12,6 +12,20 @@ var app = angular.module("plotter",[]);
  	$scope.container ='container';
  	$scope.draw();
 	};
+
+    $scope.loadJSONData=function(){
+
+        var self = $scope;
+        self.sampleData = [];
+        $http.get('/sample.js').success(function(data)
+        {
+            self.sampleData= data;
+            console.log(self.sampleData);
+        });
+
+
+    };
+
 
 	$scope.draw = function(){
 
